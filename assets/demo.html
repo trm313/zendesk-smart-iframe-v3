@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart iFrame - Demo</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 25px;
+        margin: 0;
+      }
+
+      h6 {
+        font-weight: 700;
+        text-transform: uppercase;
+        color: gray;
+        margin: 0 0 1rem;
+      }
+
+      h2 {
+        font-size: 20px;
+        margin: 20px 0 10px;
+      }
+
+      h3 {
+        font-size: 15px;
+        margin: 16px 0 6px;
+        color: #374151;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      pre {
+        overflow-x: scroll;
+        font-size: 12px;
+        border-radius: 0.25rem;
+        background-color: #f3f4f6;
+        padding: 1rem;
+      }
+
+      table {
+        border-collapse: collapse;
+        font-size: 13px;
+        width: 100%;
+        margin: 8px 0;
+      }
+
+      th {
+        text-align: left;
+        background-color: #f3f4f6;
+        padding: 6px 10px;
+        border: 1px solid #e5e7eb;
+      }
+
+      td {
+        padding: 5px 10px;
+        border: 1px solid #e5e7eb;
+        vertical-align: top;
+      }
+
+      td code {
+        font-size: 12px;
+      }
+
+      .tag-legacy {
+        font-size: 10px;
+        font-weight: 600;
+        background: #fef3c7;
+        color: #92400e;
+        border-radius: 3px;
+        padding: 1px 5px;
+        margin-left: 4px;
+        vertical-align: middle;
+      }
+
+      ol {
+        padding-left: 20px;
+        font-size: 14px;
+        list-style: decimal;
+      }
+
+      a {
+        color: blue;
+        text-decoration: underline;
+      }
+
+      code {
+        font-weight: 700;
+      }
+
+      .note {
+        background: #eff6ff;
+        border-left: 3px solid #3b82f6;
+        padding: 8px 12px;
+        font-size: 13px;
+        margin: 10px 0;
+        border-radius: 0 4px 4px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h6>Smart iFrame - Demo Page</h6>
+
+    <p>Received query parameters:</p>
+    <pre id="params-display">(loading...)</pre>
+
+    <h2>Template Variables</h2>
+
+    <p>Use <code>{{double braces}}</code> to embed Zendesk data in your URL. The app fetches the value at runtime and substitutes it before loading the iframe.</p>
+
+    <div class="note">
+      <strong>Dynamic syntax:</strong> <code>{{ticket.subject}}</code> &mdash; any ZAF dot-notation path works, including custom fields and identity fields.<br>
+      <strong>Legacy syntax:</strong> <code>{ticket_id}</code> &mdash; original 8 variables still work unchanged (they map to their dot-notation equivalents automatically).
+    </div>
+
+    <h3>Ticket</h3>
+    <table>
+      <tr><th>Variable</th><th>Description</th></tr>
+      <tr><td><code>{{ticket.id}}</code></td><td>ID of the active ticket</td></tr>
+      <tr><td><code>{{ticket.subject}}</code></td><td>Subject line of the ticket</td></tr>
+      <tr><td><code>{{ticket.status}}</code></td><td>Status of the ticket</td></tr>
+      <tr><td><code>{{ticket.priority}}</code></td><td>Priority of the ticket</td></tr>
+      <tr><td><code>{{ticket.type}}</code></td><td>Type of the ticket</td></tr>
+      <tr><td><code>{{ticket.brand.id}}</code></td><td>ID of the brand associated with the ticket</td></tr>
+      <tr><td><code>{{ticket.form.id}}</code></td><td>ID of the ticket form used</td></tr>
+      <tr><td><code>{{ticket.customField:custom_field_&lt;field_id&gt;}}</code></td><td>Value of a custom field &mdash; replace <code>&lt;field_id&gt;</code> with the numeric custom field ID</td></tr>
+    </table>
+
+    <h3>Requester (End-User)</h3>
+    <table>
+      <tr><th>Variable</th><th>Description</th></tr>
+      <tr><td><code>{{ticket.requester.id}}</code></td><td>ID of the ticket requester</td></tr>
+      <tr><td><code>{{ticket.requester.email}}</code></td><td>Email address of the requester</td></tr>
+      <tr><td><code>{{ticket.requester.externalId}}</code></td><td>Externally-mapped ID of the requester</td></tr>
+      <tr><td><code>{{ticket.requester.$phone}}</code></td><td>Phone number of the requester, e.g. +15556667777</td></tr>
+      <tr><td><code>{{ticket.requester.$phone-us}}</code></td><td>Phone number in US format, digits only, e.g. 5556667777</td></tr>
+      <tr><td><code>{{ticket.requester.$twitter}}</code></td><td>Twitter/X handle of the requester</td></tr>
+      <tr><td><code>{{ticket.requester.$facebook}}</code></td><td>Facebook identity of the requester</td></tr>
+      <tr><td><code>{{ticket.requester.$google}}</code></td><td>Google identity of the requester</td></tr>
+    </table>
+
+    <h3>Assignee (Agent)</h3>
+    <table>
+      <tr><th>Variable</th><th>Description</th></tr>
+      <tr><td><code>{{ticket.assignee.user.id}}</code></td><td>ID of the assigned agent</td></tr>
+      <tr><td><code>{{ticket.assignee.user.email}}</code></td><td>Email of the assigned agent</td></tr>
+      <tr><td><code>{{ticket.assignee.group.id}}</code></td><td>ID of the assigned group</td></tr>
+    </table>
+
+    <h3>Organization</h3>
+    <table>
+      <tr><th>Variable</th><th>Description</th></tr>
+      <tr><td><code>{{ticket.organization.name}}</code></td><td>Name of the requester's organization</td></tr>
+      <tr><td><code>{{ticket.organization.id}}</code></td><td>ID of the requester's organization</td></tr>
+    </table>
+
+    <h3>Current User (Agent Viewing the Ticket)</h3>
+    <table>
+      <tr><th>Variable</th><th>Description</th></tr>
+      <tr><td><code>{{currentUser.id}}</code></td><td>ID of the current agent</td></tr>
+      <tr><td><code>{{currentUser.email}}</code></td><td>Email of the current agent</td></tr>
+    </table>
+
+    <h3>Legacy Variables <span class="tag-legacy">backwards compatible</span></h3>
+    <p>These original variables still work. They are automatically mapped to their dot-notation equivalents.</p>
+    <table>
+      <tr><th>Legacy</th><th>Equivalent</th></tr>
+      <tr><td><code>{ticket_id}</code></td><td><code>{{ticket.id}}</code></td></tr>
+      <tr><td><code>{current_user_id}</code></td><td><code>{{currentUser.id}}</code></td></tr>
+      <tr><td><code>{current_user_email}</code></td><td><code>{{currentUser.email}}</code></td></tr>
+      <tr><td><code>{requester_id}</code></td><td><code>{{ticket.requester.id}}</code></td></tr>
+      <tr><td><code>{requester_email}</code></td><td><code>{{ticket.requester.email}}</code></td></tr>
+      <tr><td><code>{requester_external_id}</code></td><td><code>{{ticket.requester.externalId}}</code></td></tr>
+      <tr><td><code>{assignee_id}</code></td><td><code>{{ticket.assignee.user.id}}</code></td></tr>
+      <tr><td><code>{assignee_email}</code></td><td><code>{{ticket.assignee.user.email}}</code></td></tr>
+    </table>
+
+    <h2>What is Smart iFrame for Zendesk?</h2>
+    <p>
+      A Zendesk marketplace app that allows you to embed websites into your Zendesk agent workspace.
+      Use dynamic variables in your URL such as <code>https://example.com/{{ticket.id}}</code> to pass contextual data from Zendesk.
+    </p>
+    <p>
+      Don't have Smart iFrame for Zendesk yet?
+      <a href="https://www.zendesk.com/marketplace/apps/support/1020069/smart-iframe/" target="_blank">Get it here</a>
+    </p>
+
+    <h2>Updating your Smart iFrame Settings</h2>
+    <ol>
+      <li>Go to Zendesk Admin Center &gt; Apps &amp; integrations &gt; Zendesk Support apps</li>
+      <li>On the Smart iFrame app, click the Settings wheel, and then "Change settings"</li>
+      <li>Update the "URL" field with the URL of your target website</li>
+      <li>Update the "Height" field with the height of your target website</li>
+      <li>Click "Save"</li>
+    </ol>
+
+    <p style="margin-top: 20px;">
+      <a href="https://github.com/hubbubdev/zendesk-smart-iframe-docs" target="_blank">Documentation</a>
+    </p>
+
+    <script>
+      var params = new URL(window.location.href).searchParams;
+      var obj = Object.fromEntries(params);
+      document.getElementById('params-display').textContent = JSON.stringify(obj, null, 2);
+    </script>
+  </body>
+</html>

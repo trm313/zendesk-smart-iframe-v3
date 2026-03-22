@@ -1,0 +1,116 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* App wrapper — flex column, full height */
+.app-wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+/* No ZAF warning banner */
+.no-zaf-warning {
+  border-radius: 0.25rem;
+  background-color: #fef9c3;
+  padding: 1rem;
+  color: #92400e;
+}
+
+/* Browser container */
+.browser {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Browser header bar */
+.browser-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f3f4f6;
+  padding: 0.25rem 1rem;
+}
+
+/* URL bar wrapper */
+.url-bar-wrapper {
+  margin-right: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+/* URL display pill */
+.url-display {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  padding: 0.25rem 0.75rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+/* Browser action buttons row */
+.browser-actions {
+  display: flex;
+  flex-shrink: 1;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Icon buttons */
+.icon-btn {
+  display: flex;
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: transparent;
+  color: #1f2937;
+  padding: 0;
+}
+
+.icon-btn:hover {
+  background-color: #e5e7eb;
+}
+
+.icon-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* External link anchor wrapper */
+.icon-btn-link {
+  margin: 0.25rem;
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Iframe container */
+.iframe-wrapper {
+  flex-grow: 1;
+  background-color: #ffffff;
+}
+
+/* Iframe */
+#embedded-iframe {
+  display: block;
+  height: 100%;
+  width: 100%;
+}

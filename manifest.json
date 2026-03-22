@@ -1,0 +1,34 @@
+{
+	"name": "Smart iFrame",
+	"author": {
+		"name": "Hubbub Studios",
+		"email": "taylor@hubbub.dev",
+		"url": "https://github.com/hubbubdev/zendesk-smart-iframe-docs"
+	},
+	"defaultLocale": "en",
+	"private": false,
+	"location": {
+		"support": {
+			"ticket_sidebar": {
+				"url": "assets/index.html",
+				"flexible": true
+			}
+		}
+	},
+	"version": "3.0.0",
+	"frameworkVersion": "2.0",
+	"domainWhitelist": [],
+	"parameters": [
+		{
+			"name": "url",
+			"type": "text",
+			"default": "demo.html?ticket_id={ticket_id}&current_user_id={current_user_id}&current_user_email={current_user_email}&requester_id={requester_id}&requester_email={requester_email}&requester_external_id={requester_external_id}&assignee_id={assignee_id}&assignee_email={assignee_email}",
+			"required": true
+		},
+		{
+			"name": "height",
+			"type": "number",
+			"default": 300
+		}
+	]
+}
